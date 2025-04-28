@@ -53,7 +53,7 @@ const handleEdit = (item) => {
     setOrderBy(item.order_by);
     setSelectedPackage(item.selected_package);
     setQty(item.qty);
-    setStatus(item.is_paid ? "Lunas" : "Belum Lunas");
+    setStatus(item.status === "Lunas" ? "Lunas" : "Belum Lunas");
     setEditId(item.id);
     setFormVisible(true);
 };
@@ -86,20 +86,20 @@ const handleDelete = async (id) => {
                 <div className={styles.formGroup}>
                     <span>Tanggal Pesanan</span>
                     <input
-                    type="date"
-                    value={order_date}
-                    onChange={(e) => setOrderDate(e.target.value)}
-                    required
+                        type="date"
+                        value={order_date}
+                        onChange={(e) => setOrderDate(e.target.value)}
+                        required
                     />
                 </div>
                 <div className={styles.formGroup}>
                     <span>Nama Pemesan</span>
                     <input
-                    type="text"
-                    value={order_by}
-                    onChange={(e) => setOrderBy(e.target.value)}
-                    placeholder="Masukkan Nama Pemesan"
-                    required
+                        type="text"
+                        value={order_by}
+                        onChange={(e) => setOrderBy(e.target.value)}
+                        placeholder="Masukkan Nama Pemesan"
+                        required
                     />
                 </div>
                 <div className={styles.formGroup}>
@@ -177,7 +177,7 @@ const handleDelete = async (id) => {
                             <td>{item.order_by}</td>
                             <td>{item.selected_package}</td>
                             <td>{item.qty}</td>
-                            <td>{item.is_paid ? 'Lunas' : 'Belum Lunas'}</td>
+                            <td>{item.status}</td>
                             <td>
                                 <button onClick={() => handleEdit(item)}>Edit</button>
                                 <button onClick={() => handleDelete(item.id)}>Hapus</button>
