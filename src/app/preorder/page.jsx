@@ -42,7 +42,7 @@ const handleSubmit = async (e) => {
         setStatus('');
         setEditId(null);
         setFormVisible(false);
-        fetchMatkuls(); // refresh data
+        fetchPreorders();
     } else {
         setMsg('Gagal menyimpan data');
     }
@@ -53,7 +53,7 @@ const handleEdit = (item) => {
     setOrderBy(item.order_by);
     setSelectedPackage(item.selected_package);
     setQty(item.qty);
-    setStatus(item.status);
+    setStatus(item.is_paid ? "Lunas" : "Belum Lunas");
     setEditId(item.id);
     setFormVisible(true);
 };
@@ -177,7 +177,7 @@ const handleDelete = async (id) => {
                             <td>{item.order_by}</td>
                             <td>{item.selected_package}</td>
                             <td>{item.qty}</td>
-                            <td>{item.status}</td>
+                            <td>{item.is_paid ? 'Lunas' : 'Belum Lunas'}</td>
                             <td>
                                 <button onClick={() => handleEdit(item)}>Edit</button>
                                 <button onClick={() => handleDelete(item.id)}>Hapus</button>
@@ -185,9 +185,9 @@ const handleDelete = async (id) => {
                             
                         </tr>
                     ))}
-                    {matkuls.length === 0 && (
+                    {preorders.length === 0 && (
                         <tr>
-                            <td colSpan="4">Belum ada data</td>
+                            <td colSpan="7">Belum ada data</td>
                         </tr>
                     )}
                 </tbody>
