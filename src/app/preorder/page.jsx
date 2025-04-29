@@ -27,10 +27,11 @@ export default function PreorderPage() {
 const handleSubmit = async (e) => {
     e.preventDefault();
     const method = editId ? 'PUT' : 'POST';
-    const res = await fetch('/api/preorder', {
+    const url = editId ? `/api/preorder/${editId}` : '/api/preorder';
+    const res = await fetch(url, {
         method,
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id: editId, order_date, order_by, selected_package, qty, status  }),
+        body: JSON.stringify({ order_date, order_by, selected_package, qty, status }),
     });
 
     if (res.ok) {
@@ -58,10 +59,12 @@ const handleEdit = (item) => {
     setFormVisible(true);
 };
 
+
+
 const handleDelete = async (id) => {
     if (!confirm('Yakin hapus data ini?')) return;
 
-    await fetch('/api/preorder', {
+    await fetch(`/api/preorder/${id}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id }),
@@ -120,7 +123,7 @@ const handleDelete = async (id) => {
                 <div className={styles.formGroup}>
                     <span>Jumlah</span>
                     <input
-                    type="text"
+                    type="number"
                     value={qty}
                     onChange={(e) => setQty(e.target.value)}
                     placeholder="Input Jumlah"

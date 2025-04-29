@@ -32,7 +32,7 @@ export async function POST(request) {
     const is_paid = status === "Lunas";
 
     const preorder = await prisma.preorder.create({
-        data: { order_date: validOrderDate, order_by, selected_package, qty, is_paid },
+        data: { order_date: validOrderDate, order_by, selected_package, qty: parseInt(qty), is_paid },
     });
 
     // format tampilan hasil di Postman
