@@ -31,7 +31,7 @@ const handleSubmit = async (e) => {
     const res = await fetch(url, {
         method,
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ order_date, order_by, selected_package, qty, status }),
+        body: JSON.stringify({ order_date, order_by, selected_package, qty: Number(qty), status }),
     });
 
     if (res.ok) {
