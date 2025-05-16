@@ -120,7 +120,7 @@ const handleDelete = async (id) => {
                         required
                     >
                         {pakets.map((item) => (
-                            <option key={item.id} value={item.id}>{item.nama}</option>
+                            <option key={item.id} value={item.selected_package}>{item.nama}</option>
                         ))}
                     </select>
                 </div>
