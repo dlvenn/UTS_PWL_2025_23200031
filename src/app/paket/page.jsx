@@ -95,7 +95,7 @@ const handleDelete = async (id) => {
                         type="text"
                         value={nama}
                         onChange={(e) => setNama(e.target.value)}
-                        placeholder="Masukkan Nama Pemesan"
+                        placeholder="Masukkan Nama Paket"
                         required
                     />
                 </div>

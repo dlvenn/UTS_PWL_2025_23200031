@@ -21,7 +21,7 @@ model preorder {
 
 model paket {
   id  Int @id @default(autoincrement())
-  kode  String
+  kode  String @unique
   nama  String
   deskripsi String
 }
