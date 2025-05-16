@@ -1,7 +1,7 @@
 import prisma from "@/lib/prisma";
 
 export async function GET() {
-    const data = await prisma.preorder.findMany({
+    const data = await prisma.paket.findMany({
         orderBy: { id: 'asc' },
     });
 
@@ -16,6 +16,11 @@ export async function POST(request) {
             status: 400,
         });
     }
-    return new Response(JSON.stringify(preorder), { status: 201 });
+    
+    const paket = await prisma.paket.create({
+        data: { kode, nama, deskripsi },
+    });
+
+    return new Response(JSON.stringify(paket), { status: 201 });
 }
 
