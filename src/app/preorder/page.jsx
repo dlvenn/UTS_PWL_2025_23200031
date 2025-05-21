@@ -119,6 +119,7 @@ const handleDelete = async (id) => {
                         onChange={(e) => setSelectedPackage(e.target.value)}
                         required
                     >
+                        <option value="">Pilih Paket</option>
                         {pakets.map((item) => (
                             <option key={item.id} value={item.selected_package}>{item.nama}</option>
                         ))}
