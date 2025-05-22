@@ -86,6 +86,7 @@ const handleDelete = async (id) => {
                         type="text"
                         value={kode}
                         onChange={(e) => setKode(e.target.value)}
+                        placeholder="Masukkan Kode"
                         required
                     />
                 </div>
@@ -101,11 +102,11 @@ const handleDelete = async (id) => {
                 </div>
                 <div className={styles.formGroup}>
                     <span>Deskripsi</span>
-                    <input
-                        type="text"
+                    <textarea
                         value={deskripsi}
                         onChange={(e) => setDeskripsi(e.target.value)}
                         placeholder="Masukkan Deskripsi"
+                        style={{ width: '100%', resize: 'vertical', minHeight: '100px' }}
                         required
                     />
                 </div>
