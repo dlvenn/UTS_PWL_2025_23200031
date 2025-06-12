@@ -11,13 +11,20 @@ export async function PUT(request, { params }) {
     const validOrderDate = new Date(order_date).toISOString();
 
     const is_paid = status === "Lunas";
+
+    const selectedPackageInt = parseInt(selected_package);
+    if (isNaN(selectedPackageInt)) {
+        return new Response(JSON.stringify({ error: 'selected_package dalam bentuk angka' }), {
+            status: 400,
+        });
+    }
     
     const preorder = await prisma.preorder.update({
         where: { id: Number(id) },
-        data: { order_date: validOrderDate, order_by, selected_package, qty, is_paid },
+        data: { order_date: validOrderDate, order_by, selected_package: selectedPackageInt, qty, is_paid },
     });
 
-    // format tampilan hasil di Postman
+    // format tampilan
     const formattedPreorder = {
         id: preorder.id,
         order_date: preorder.order_date.toISOString().split('T')[0],

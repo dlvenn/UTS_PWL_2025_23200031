@@ -16,13 +16,13 @@ export default function PreorderPage() {
   const [editId, setEditId] = useState(null);
 
   const fetchPreorders = async () => {
-    const res = await fetch('api/preorder');
+    const res = await fetch('/api/preorder');
     const data = await res.json();
     setPreorders(data);
   };
 
   const fetchPakets = async () => {
-    const res = await fetch('api/paket');
+    const res = await fetch('/api/paket');
     const data = await res.json();
     setPakets(data);
   };
@@ -60,7 +60,7 @@ const handleSubmit = async (e) => {
 const handleEdit = (item) => {
     setOrderDate(item.order_date);
     setOrderBy(item.order_by);
-    setSelectedPackage(item.selected_package);
+    setSelectedPackage(item.selected_package.toString());
     setQty(item.qty);
     setStatus(item.status === "Lunas" ? "Lunas" : "Belum Lunas");
     setEditId(item.id);
@@ -120,8 +120,8 @@ const handleDelete = async (id) => {
                         required
                     >
                         <option value="">Pilih Paket</option>
-                        {pakets.map((item) => (
-                            <option key={item.id} value={item.selected_package}>{item.nama}</option>
+                        {pakets.map((paket) => (
+                            <option key={paket.id} value={paket.id}>{paket.nama}</option>
                         ))}
                     </select>
                 </div>
@@ -183,7 +183,7 @@ const handleDelete = async (id) => {
                             <td>{index + 1}</td>
                             <td>{item.order_date}</td>
                             <td>{item.order_by}</td>
-                            <td>{item.selected_package}</td>
+                            <td>{item.selected_package || "Unknown"}</td>
                             <td>{item.qty}</td>
                             <td>{item.status}</td>
                             <td>

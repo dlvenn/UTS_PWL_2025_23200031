@@ -14,9 +14,10 @@ model preorder {
   id  Int @id @default(autoincrement())
   order_date  DateTime
   order_by  String
-  selected_package  String
+  selected_package  Int
   qty Int
   is_paid Boolean
+  paket paket @relation(fields: [selected_package], references: [id])
 }
 
 model paket {
@@ -24,4 +25,13 @@ model paket {
   kode  String @unique
   nama  String
   deskripsi String
+  preorders preorder[]
+}
+
+model customer {
+  id  Int @id @default(autoincrement())
+  name  String
+  phone String
+  email String?
+  createdAt DateTime @default(now())
 }
