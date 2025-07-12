@@ -100,12 +100,14 @@ export default function PreorderPage() {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Ayam Penyet Koh Alex</h1>
-      <button
-        className={styles.buttonToggle}
-        onClick={() => setFormVisible(!formVisible)}>
-        {formVisible ? 'Tutup Form' : 'Tambah Data'}
+        <h1 className={styles.title}>Ayam Penyet Koh Alex</h1>
+        <button
+            className={styles.buttonToggle}
+            onClick={() => setFormVisible(!formVisible)}>
+            {formVisible ? 'Tutup Form' : 'Tambah Data'}
       </button>
+      <button style={{ marginRight: '10px', float: 'right' }} onClick={() => window.location.href = '/customer'}>Kelola Customer</button>
+      <button style={{ marginRight: '10px', float: 'right' }} onClick={() => window.location.href = '/paket'}>Kelola Paket</button>
 
       {formVisible && (
         <div className={styles.formWrapper}>
