@@ -1,7 +1,7 @@
 import prisma from "@/lib/prisma";
 
 export async function PUT(request, { params }) {
-    const { id } = await params;
+    const { id } = params;
     const { order_date, order_by, selected_package, qty, status } = await request.json();
 
     if (!order_date || !order_by || !selected_package || !qty || !status) {
@@ -18,10 +18,17 @@ export async function PUT(request, { params }) {
             status: 400,
         });
     }
+
+    const orderByInt = parseInt(order_by);
+    if (isNaN(orderByInt)) {
+        return new Response(JSON.stringify({ error: 'order_by dalam bentuk angka' }), {
+            status: 400,
+        });
+    }
     
     const preorder = await prisma.preorder.update({
         where: { id: Number(id) },
-        data: { order_date: validOrderDate, order_by, selected_package: selectedPackageInt, qty, is_paid },
+        data: { order_date: validOrderDate, order_by: orderByInt, selected_package: selectedPackageInt, qty, is_paid },
     });
 
     // format tampilan
@@ -38,7 +45,7 @@ export async function PUT(request, { params }) {
 }
 
 export async function DELETE(request, { params }) {
-    const { id } = await params;
+    const { id } = params;
 
     if (!id) return new Response(JSON.stringify({ error: "ID tidak ditemukan" }), { status: 400 });
 

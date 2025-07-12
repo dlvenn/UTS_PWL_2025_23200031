@@ -2,20 +2,10 @@ import prisma from "@/lib/prisma";
 
 export async function GET() {
     const data = await prisma.preorder.findMany({
-        include: { paket: true },
+        include: { paket: true, customer: true },
         orderBy: { id: 'asc' },
     });
-
- const formattedData = data.map((item) => ({
-        id: item.id,
-        order_date: item.order_date.toISOString().split('T')[0],
-        order_by: item.order_by,
-        selected_package: item.paket ? item.paket.nama : 'Paket tidak ditemukan',
-        qty: item.qty,
-        status: item.is_paid ? "Lunas" : "Belum Lunas",
-      }));
-
-    return new Response(JSON.stringify(formattedData), { status: 200 });
+    return new Response(JSON.stringify(data), { status: 200 });
 }
 
 export async function POST(request) {
@@ -38,8 +28,15 @@ export async function POST(request) {
         });
     }
 
+    const orderByInt = parseInt(order_by);
+    if (isNaN(orderByInt)) {
+        return new Response(JSON.stringify({ error: 'order_by dalam bentuk angka' }), {
+            status: 400,
+        });
+    }
+
     const preorder = await prisma.preorder.create({
-        data: { order_date: validOrderDate, order_by, selected_package: selectedPackageInt, qty: parseInt(qty), is_paid },
+        data: { order_date: validOrderDate, order_by: orderByInt, selected_package: selectedPackageInt, qty: parseInt(qty), is_paid },
     });
 
     // format tampilan

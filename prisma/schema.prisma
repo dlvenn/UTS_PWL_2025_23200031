@@ -13,11 +13,12 @@ datasource db {
 model preorder {
   id  Int @id @default(autoincrement())
   order_date  DateTime
-  order_by  String
+  order_by  Int
   selected_package  Int
   qty Int
   is_paid Boolean
   paket paket @relation(fields: [selected_package], references: [id])
+  customer customer @relation(fields: [order_by], references: [id])
 }
 
 model paket {
@@ -34,4 +35,5 @@ model customer {
   phone String
   email String?
   createdAt DateTime @default(now())
+  preorders preorder[]
 }
