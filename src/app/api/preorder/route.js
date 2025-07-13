@@ -10,7 +10,6 @@ export async function GET() {
 
 export async function POST(request) {
     const { order_date, order_by, selected_package, qty, status } = await request.json();
-
     if (!order_date || !order_by || !selected_package || !qty || !status) {
         return new Response(JSON.stringify ({ error: 'Semua field wajib diisi' }), {
             status: 400,
@@ -18,9 +17,7 @@ export async function POST(request) {
     }
 
     const validOrderDate = new Date(order_date).toISOString();
-
     const is_paid = status === "Lunas";
-
     const selectedPackageInt = parseInt(selected_package);
     if (isNaN(selectedPackageInt)) {
         return new Response(JSON.stringify({ error: 'selected_package dalam bentuk angka' }), {

@@ -1,17 +1,14 @@
 import prisma from "@/lib/prisma";
 
 export async function PUT(request, { params }) {
-    const { id } = params;
+    const { id } = await params;
     const { order_date, order_by, selected_package, qty, status } = await request.json();
-
     if (!order_date || !order_by || !selected_package || !qty || !status) {
         return new Response(JSON.stringify({ error: 'Field kosong' }), { status: 400 });
     }
 
     const validOrderDate = new Date(order_date).toISOString();
-
     const is_paid = status === "Lunas";
-
     const selectedPackageInt = parseInt(selected_package);
     if (isNaN(selectedPackageInt)) {
         return new Response(JSON.stringify({ error: 'selected_package dalam bentuk angka' }), {
@@ -40,18 +37,15 @@ export async function PUT(request, { params }) {
         qty: preorder.qty,
         status: preorder.is_paid ? "Lunas" : "Belum Lunas",
     };
-
     return new Response(JSON.stringify(formattedPreorder), { status: 200 });
 }
 
 export async function DELETE(request, { params }) {
-    const { id } = params;
-
+    const { id } = await params;
     if (!id) return new Response(JSON.stringify({ error: "ID tidak ditemukan" }), { status: 400 });
-
+    
     const deletedPreorder = await prisma.preorder.delete({
         where: { id: Number(id) },
     });
-    
     return new Response(JSON.stringify({ message: "Berhasil dihapus", deletedPreorder }), { status: 200 });
 }
