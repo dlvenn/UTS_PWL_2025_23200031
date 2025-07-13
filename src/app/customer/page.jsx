@@ -91,7 +91,7 @@ const handleDelete = async (id) => {
                 <div className={styles.formGroup}>
                     <span>Nomor HP</span>
                     <input
-                        type="tel"
+                        type="text"
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
                         placeholder="Masukkan Nomor HP"

@@ -21,9 +21,9 @@ export async function DELETE(request, { params }) {
 
     if (!id) return new Response(JSON.stringify({ error: "ID tidak ditemukan" }), { status: 400 });
 
-    const deletedPreorder = await prisma.customer.delete({
+    const deletedCustomer = await prisma.customer.delete({
         where: { id: Number(id) },
     });
     
-    return new Response(JSON.stringify({ message: "Berhasil dihapus" }), { status: 200 });
+    return new Response(JSON.stringify({ message: "Berhasil dihapus", deletedCustomer }), { status: 200 });
 }

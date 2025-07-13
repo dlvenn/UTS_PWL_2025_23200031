@@ -26,5 +26,5 @@ export async function DELETE(request, { params }) {
         where: { id: Number(id) },
     });
     
-    return new Response(JSON.stringify({ message: "Berhasil dihapus" }), { status: 200 });
+    return new Response(JSON.stringify({ message: "Berhasil dihapus", deletedPaket }), { status: 200 });
 }
